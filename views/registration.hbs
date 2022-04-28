@@ -1,5 +1,15 @@
 <p>Scrivi il tuo nome per inserirti nella lista</p>
 
+{{! 
+in questo file, creo un form. 
+Sono importanti i parametri nel tag form, perchè 
+- POST mi definisce il metodo dell'HTTP che andrò ad utilizzare 
+- Action andrà a eseguire un'azione a quel specifico endpoint per poi 
+chiamre la mia miniAPI
+- l' enctype serve specificarlo perchè serve a body-parser (modulo importato
+in APP.js) per parsificare i dati in un oggetto 
+}}
+
 <form method="POST" action="/registration" enctype="application/x-www-form-urlencoded">
 <label for="">id</label>
 <input type="number" name="id"/>
@@ -12,10 +22,10 @@
 <input type="submit" onclick="redirectFn()"/>
 </form>
 
-
+{{! funzione che chiama un'alert}}
 <script>
   function redirectFn(){
       alert("dati inviati con successo")
-      location.reload()
+      location.reload() // non funziona
   }
 </script>

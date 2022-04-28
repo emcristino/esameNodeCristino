@@ -3,8 +3,10 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
-const bodyParser = require('body-parser') //modulo esterno
-const fs = require("fs") //modulo interno 
+const bodyParser = require('body-parser') //importo il modulo esterno body Parser
+// questo modulo semplifica l'invio e la ricezione di dati all'interno del form
+
+const fs = require("fs") // importo il modulo interno di node FS
 
 var indexRouter = require("./routes/index"); // moduli prof importati 
 var usersRouter = require("./routes/users");
@@ -17,7 +19,7 @@ var app = express();
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "hbs");
 
-//body parser per il form W
+//bodyParser -> codifica dei dati !importante
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json());
 
@@ -34,25 +36,24 @@ app.use(express.static(path.join(__dirname, "public")));
 
 
 
-
+//utilizzo del routing per le pagine del professore
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/localusers", usersRouter);
 
 
-
-// routing della nuova pagina W
+// routing della mia pagina
 app.get("/registration",(req,res)=>{
   res.render("registration")
 })
 
-//submit hadler creato da Manu W
+//submit handler -> chiamiamo la funzione post (avendo noi utilizzato il method post nel form)
 
-app.post('/registration',(req, res)=>{
-  console.log(req.body)
-  const obj = JSON.stringify(req.body)
+app.post('/registration',(req, res)=>{// gli diamo l'endpoint uguale all'action del form
+  console.log(req.body)// console.log del contenuto dell'oggetto request.body
+  const obj = JSON.stringify(req.body) //trasformo l'oggetto in stringa
   console.log(obj)
-  fs.writeFileSync('./routes/user.json', '['+obj+']');
+  fs.writeFileSync('./routes/user.json', '['+obj+']'); //scrivo la stringa nel file indicato.
   console.log("writing complete!")
 
   /**
@@ -62,7 +63,6 @@ app.post('/registration',(req, res)=>{
    */
 
 })
-
 
 
 
