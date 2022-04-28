@@ -1,0 +1,21 @@
+<p>Scrivi il tuo nome per inserirti nella lista</p>
+
+<form method="POST" action="/registration" enctype="application/x-www-form-urlencoded">
+<label for="">id</label>
+<input type="number" name="id"/>
+<label> Nome</label>
+<input type="text" name="name" id="nome"/>
+<label for="">username</label>
+<input type="text" name="username"/>
+<label for=""> Email</label>
+<input type="email" name="email"/> 
+<input type="submit" onclick="redirectFn()"/>
+</form>
+
+
+<script>
+  function redirectFn(){
+      alert("dati inviati con successo")
+      location.reload()
+  }
+</script>
