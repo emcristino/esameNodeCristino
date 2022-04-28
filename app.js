@@ -8,7 +8,7 @@ const bodyParser = require('body-parser') //importo il modulo esterno body Parse
 
 const fs = require("fs") // importo il modulo interno di node FS
 
-var indexRouter = require("./routes/index"); // moduli prof importati 
+var indexRouter = require("./routes/index"); 
 var usersRouter = require("./routes/users");
 var usersRouter = require("./routes/localusers");
 
@@ -19,12 +19,12 @@ var app = express();
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "hbs");
 
-//bodyParser -> codifica dei dati !importante
+
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json());
 
 
-// Registriamo la cartella partials
+
 const hbs = require("hbs");
 hbs.registerPartials(path.join(__dirname, "views", "partials"));
 
@@ -36,7 +36,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 
 
-//utilizzo del routing per le pagine del professore
+
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/localusers", usersRouter);
@@ -47,20 +47,13 @@ app.get("/registration",(req,res)=>{
   res.render("registration")
 })
 
-//submit handler -> chiamiamo la funzione post (avendo noi utilizzato il method post nel form)
-
-app.post('/registration',(req, res)=>{// gli diamo l'endpoint uguale all'action del form
-  console.log(req.body)// console.log del contenuto dell'oggetto request.body
-  const obj = JSON.stringify(req.body) //trasformo l'oggetto in stringa
+//gestione invio -> chiamiamo la funzione post 
+app.post('/registration',(req, res)=>{ 
+  console.log(req.body)
+  const obj = JSON.stringify(req.body) 
   console.log(obj)
-  fs.writeFileSync('./routes/user.json', '['+obj+']'); //scrivo la stringa nel file indicato.
+  fs.writeFileSync('./routes/user.json', '['+obj+']'); //scrivo la stringa nel file indicato
   console.log("writing complete!")
-
-  /**
-   * utilizzerei fs.appendFile per aggangiare ogni nuovo oggetto al file,
-   * ma dovendo sempre esserci la parentesi quadra che chiude il json, risulterebbe 
-   * fifficile da inserire. 
-   */
 
 })
 
